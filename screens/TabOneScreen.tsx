@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet, FlatList } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
@@ -8,6 +9,27 @@ var token = null;
 var loginData = {
   email: "alessiocorrado99@gmail.com",
   password: "password",
+};
+
+var DATA = [
+  { nome: "aasdasd asdasd" },
+  { nome: "aasdasd asdasd" },
+  { nome: "aasdasd asdasd" },
+  { nome: "aasdasd asdasd" },
+  { nome: "aasdasd asdasd" },
+  { nome: "aasdasd asdasd" },
+  { nome: "aasdasd asdasd" },
+  { nome: "aasdasd asdasd" },
+  { nome: "bbsdf sdfiasd" },
+];
+
+const Item = (item) => {
+  console.log(item);
+  return (
+    <View style={listStyle.container}>
+      <Text style={listStyle.nome}>{item.nome}</Text>
+    </View>
+  );
 };
 
 export default class TabOneScreen extends React.Component {
@@ -28,8 +50,10 @@ export default class TabOneScreen extends React.Component {
   }
 
   render() {
+    var renderItem = ({ item }) => <Item nome={item.nome} />;
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.header_title}>SAN VITO AL TAGLIAMENTO</Text>
           <View style={styles.header_content}>
@@ -68,18 +92,28 @@ export default class TabOneScreen extends React.Component {
             </View>
           </View>
         </View>
-        <View style={styles.content}></View>
-      </View>
+        <View style={styles.content}>
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.nome}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
+
+const listStyle = StyleSheet.create({
+  container: { marginBottom: 32, backgroundColor: "orange", padding: 16 },
+  nome: { fontSize: 20 },
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   header: {
-    flex: 0.4,
     backgroundColor: "red",
   },
   header_title: {
@@ -118,7 +152,7 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   content: {
-    flex: 0.6,
     backgroundColor: "blue",
+    padding: 32,
   },
 });
