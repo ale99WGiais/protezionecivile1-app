@@ -1,11 +1,11 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ImageBackground, StyleSheet, FlatList, Image } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 import { Text, View } from "../components/Themed";
 
-var token = null;
+var token = "ale8us_3MZmRLeMW0287CSu43evgcHh4kQX1zRvujGtKGk";
 var loginData = {
   email: "alessiocorrado99@gmail.com",
   password: "password",
@@ -15,9 +15,9 @@ const Item = (item) => {
   console.log(item);
   return (
     <View style={listStyle.container}>
-      <View style={listStyle.nome_view}>
+      <View style={listStyle.descrizione_view}>
         <TouchableOpacity>
-          <Text style={listStyle.nome}>{item.nome}</Text>
+          <Text style={listStyle.descrizione}>{item.descrizione}</Text>
         </TouchableOpacity>
       </View>
 
@@ -46,17 +46,36 @@ export default function TabOneScreen() {
         token = response["token"];
         console.log(token);
       });
+      
   }*/
 
-  var [listData, setListdata] = useState([
-    { nome: "centro vaccinale" },
-    { nome: "maltempo" },
-    { nome: "taglio alberi" },
-    { nome: "esercitazione antincendio" },
-    { nome: "esercitazione antincendio" },
+  //ale8us_3MZmRLeMW0287CSu43evgcHh4kQX1zRvujGtKGk
+
+  useEffect(() => {
+    console.log("start request");
+    fetch("http://158.110.96.158:8080/api/get_attivita?non_completate", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(setListData(response));
+      });
+  });
+
+  var [listData, setListData] = useState([
+    { descrizione: "centro vaccinale" },
+    { descrizione: "maltempo" },
+    { descrizione: "taglio alberi" },
+    { descrizione: "esercitazione antincendio" },
+    { descrizione: "esercitazione antincendio" },
   ]);
 
-  var renderItem = ({ item }) => <Item nome={item.nome} />;
+  var renderItem = ({ item }) => <Item descrizione={item.descrizione} />;
 
   return (
     <ScrollView style={styles.container}>
@@ -116,8 +135,8 @@ const listStyle = StyleSheet.create({
     padding: 16,
     flexDirection: "row",
   },
-  nome: { fontSize: 20, flex: 1, textTransform: "uppercase" },
-  nome_view: { flex: 1, backgroundColor: "transparent", marginEnd: 16 },
+  descrizione: { fontSize: 20, flex: 1, textTransform: "uppercase" },
+  descrizione_view: { flex: 1, backgroundColor: "transparent", marginEnd: 16 },
   play: {
     height: 32,
     width: 32,
@@ -164,7 +183,7 @@ const styles = StyleSheet.create({
   },
   header_content_center_image: {
     flex: 1,
-    resizeMode: "cover",
+    resizeMode: "contain",
     justifyContent: "center",
     padding: 32,
   },
