@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ImageBackground, StyleSheet, FlatList } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { useState } from "react";
+import { ImageBackground, StyleSheet, FlatList, Image } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
@@ -11,30 +12,37 @@ var loginData = {
   password: "password",
 };
 
-var DATA = [
-  { nome: "aasdasd asdasd" },
-  { nome: "aasdasd asdasd" },
-  { nome: "aasdasd asdasd" },
-  { nome: "aasdasd asdasd" },
-  { nome: "aasdasd asdasd" },
-  { nome: "aasdasd asdasd" },
-  { nome: "aasdasd asdasd" },
-  { nome: "aasdasd asdasd" },
-  { nome: "bbsdf sdfiasd" },
+var listData = [
+  { nome: "centro vaccinale" },
+  { nome: "maltempo" },
+  { nome: "taglio alberi" },
+  { nome: "esercitazione antincendio" },
+  { nome: "esercitazione antincendio" },
 ];
 
 const Item = (item) => {
   console.log(item);
   return (
     <View style={listStyle.container}>
-      <Text style={listStyle.nome}>{item.nome}</Text>
+      <View style={listStyle.nome_view}>
+        <TouchableOpacity>
+          <Text style={listStyle.nome}>{item.nome}</Text>
+        </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity>
+        <Image
+          style={listStyle.play}
+          source={require("../assets/images/play.png")}
+        ></Image>
+      </TouchableOpacity>
     </View>
   );
 };
 
 export default class TabOneScreen extends React.Component {
-  componentDidMount() {
-    /*fetch("http://158.110.96.158:8080/api/do_login", {
+  /*componentDidMount() {
+    fetch("http://158.110.96.158:8080/api/do_login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -46,8 +54,8 @@ export default class TabOneScreen extends React.Component {
       .then((response) => {
         token = response["token"];
         console.log(token);
-      });*/
-  }
+      });
+  }*/
 
   render() {
     var renderItem = ({ item }) => <Item nome={item.nome} />;
@@ -94,7 +102,7 @@ export default class TabOneScreen extends React.Component {
         </View>
         <View style={styles.content}>
           <FlatList
-            data={DATA}
+            data={listData}
             renderItem={renderItem}
             keyExtractor={(item) => item.nome}
           />
@@ -105,8 +113,20 @@ export default class TabOneScreen extends React.Component {
 }
 
 const listStyle = StyleSheet.create({
-  container: { marginBottom: 32, backgroundColor: "orange", padding: 16 },
-  nome: { fontSize: 20 },
+  container: {
+    marginBottom: 32,
+    backgroundColor: "orange",
+    padding: 16,
+    flexDirection: "row",
+  },
+  nome: { fontSize: 20, flex: 1, textTransform: "uppercase" },
+  nome_view: { flex: 1, backgroundColor: "transparent", marginEnd: 16 },
+  play: {
+    height: 32,
+    width: 32,
+    resizeMode: "contain",
+    justifyContent: "center",
+  },
 });
 
 const styles = StyleSheet.create({
