@@ -3,7 +3,6 @@ import { useState } from "react";
 import { ImageBackground, StyleSheet, FlatList, Image } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 
 var token = null;
@@ -11,14 +10,6 @@ var loginData = {
   email: "alessiocorrado99@gmail.com",
   password: "password",
 };
-
-var listData = [
-  { nome: "centro vaccinale" },
-  { nome: "maltempo" },
-  { nome: "taglio alberi" },
-  { nome: "esercitazione antincendio" },
-  { nome: "esercitazione antincendio" },
-];
 
 const Item = (item) => {
   console.log(item);
@@ -40,7 +31,7 @@ const Item = (item) => {
   );
 };
 
-export default class TabOneScreen extends React.Component {
+export default function TabOneScreen() {
   /*componentDidMount() {
     fetch("http://158.110.96.158:8080/api/do_login", {
       method: "POST",
@@ -57,59 +48,65 @@ export default class TabOneScreen extends React.Component {
       });
   }*/
 
-  render() {
-    var renderItem = ({ item }) => <Item nome={item.nome} />;
+  var [listData, setListdata] = useState([
+    { nome: "centro vaccinale" },
+    { nome: "maltempo" },
+    { nome: "taglio alberi" },
+    { nome: "esercitazione antincendio" },
+    { nome: "esercitazione antincendio" },
+  ]);
 
-    return (
-      <ScrollView style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.header_title}>SAN VITO AL TAGLIAMENTO</Text>
-          <View style={styles.header_content}>
-            <View style={styles.header_content_side}>
-              <Text style={styles.header_content_side_number}>30</Text>
-              <Text style={styles.header_content_side_desc}>SVOLTE</Text>
-            </View>
-            <View style={styles.header_content_center}>
-              <ImageBackground
-                source={require("../assets/images/circle_image.png")}
-                style={styles.header_content_center_image}
+  var renderItem = ({ item }) => <Item nome={item.nome} />;
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.header_title}>SAN VITO AL TAGLIAMENTO</Text>
+        <View style={styles.header_content}>
+          <View style={styles.header_content_side}>
+            <Text style={styles.header_content_side_number}>30</Text>
+            <Text style={styles.header_content_side_desc}>SVOLTE</Text>
+          </View>
+          <View style={styles.header_content_center}>
+            <ImageBackground
+              source={require("../assets/images/circle_image.png")}
+              style={styles.header_content_center_image}
+            >
+              <Text
+                style={{
+                  textTransform: "uppercase",
+                  fontSize: 24,
+                  textAlign: "center",
+                }}
               >
-                <Text
-                  style={{
-                    textTransform: "uppercase",
-                    fontSize: 24,
-                    textAlign: "center",
-                  }}
-                >
-                  10
-                </Text>
-                <Text
-                  style={{
-                    textTransform: "uppercase",
-                    fontSize: 16,
-                    textAlign: "center",
-                  }}
-                >
-                  attività progr.
-                </Text>
-              </ImageBackground>
-            </View>
-            <View style={styles.header_content_side}>
-              <Text style={styles.header_content_side_number}>15</Text>
-              <Text style={styles.header_content_side_desc}>VOLONTARI</Text>
-            </View>
+                10
+              </Text>
+              <Text
+                style={{
+                  textTransform: "uppercase",
+                  fontSize: 16,
+                  textAlign: "center",
+                }}
+              >
+                attività progr.
+              </Text>
+            </ImageBackground>
+          </View>
+          <View style={styles.header_content_side}>
+            <Text style={styles.header_content_side_number}>15</Text>
+            <Text style={styles.header_content_side_desc}>VOLONTARI</Text>
           </View>
         </View>
-        <View style={styles.content}>
-          <FlatList
-            data={listData}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.nome}
-          />
-        </View>
-      </ScrollView>
-    );
-  }
+      </View>
+      <View style={styles.content}>
+        <FlatList
+          data={listData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.nome}
+        />
+      </View>
+    </ScrollView>
+  );
 }
 
 const listStyle = StyleSheet.create({
