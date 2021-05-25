@@ -11,16 +11,18 @@ var loginData = {
   password: "password",
 };
 
-const Item = (item) => {
+var nav;
+
+const Item = ({ descrizione }) => {
   return (
     <View style={listStyle.container}>
       <View style={listStyle.descrizione_view}>
         <TouchableOpacity>
-          <Text style={listStyle.descrizione}>{item.descrizione}</Text>
+          <Text style={listStyle.descrizione}>{descrizione}</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate("SecondPage")}>
+      <TouchableOpacity onPress={() => nav.navigate("SecondPage")}>
         <Image
           style={listStyle.play}
           source={require("../assets/images/play.png")}
@@ -49,6 +51,8 @@ export default function TabOneScreen({ navigation }) {
   }*/
 
   //ale8us_3MZmRLeMW0287CSu43evgcHh4kQX1zRvujGtKGk
+
+  nav = navigation;
 
   if (listData == null) {
     useEffect(() => {
@@ -131,6 +135,7 @@ const listStyle = StyleSheet.create({
     backgroundColor: "orange",
     padding: 16,
     flexDirection: "row",
+    alignItems: "center",
   },
   descrizione: { fontSize: 20, flex: 1, textTransform: "uppercase" },
   descrizione_view: { flex: 1, backgroundColor: "transparent", marginEnd: 16 },
