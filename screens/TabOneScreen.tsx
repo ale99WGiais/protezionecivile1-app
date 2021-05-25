@@ -12,7 +12,6 @@ var loginData = {
 };
 
 const Item = (item) => {
-  console.log(item);
   return (
     <View style={listStyle.container}>
       <View style={listStyle.descrizione_view}>
@@ -21,7 +20,7 @@ const Item = (item) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("SecondPage")}>
         <Image
           style={listStyle.play}
           source={require("../assets/images/play.png")}
@@ -31,7 +30,7 @@ const Item = (item) => {
   );
 };
 
-export default function TabOneScreen() {
+export default function TabOneScreen({ navigation }) {
   /*componentDidMount() {
     fetch("http://158.110.96.158:8080/api/do_login", {
       method: "POST",
@@ -51,29 +50,25 @@ export default function TabOneScreen() {
 
   //ale8us_3MZmRLeMW0287CSu43evgcHh4kQX1zRvujGtKGk
 
-  useEffect(() => {
-    console.log("start request");
-    fetch("http://158.110.96.158:8080/api/get_attivita?non_completate", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(setListData(response));
-      });
-  });
+  if (listData == null) {
+    useEffect(() => {
+      console.log("start request");
+      fetch("http://158.110.96.158:8080/api/get_attivita?non_completate", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setListData(response);
+        });
+    });
+  }
 
-  var [listData, setListData] = useState([
-    { descrizione: "centro vaccinale" },
-    { descrizione: "maltempo" },
-    { descrizione: "taglio alberi" },
-    { descrizione: "esercitazione antincendio" },
-    { descrizione: "esercitazione antincendio" },
-  ]);
+  var [listData, setListData] = useState(null);
 
   var renderItem = ({ item }) => <Item descrizione={item.descrizione} />;
 
@@ -118,11 +113,13 @@ export default function TabOneScreen() {
         </View>
       </View>
       <View style={styles.content}>
-        <FlatList
-          data={listData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.nome}
-        />
+        {listData == null ? null : (
+          <FlatList
+            data={listData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.nome}
+          />
+        )}
       </View>
     </ScrollView>
   );
