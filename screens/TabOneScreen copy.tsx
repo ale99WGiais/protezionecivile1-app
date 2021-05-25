@@ -102,7 +102,7 @@ export default function TabOneScreen({ navigation }) {
               <Text
                 style={{
                   textTransform: "uppercase",
-                  fontSize: 14,
+                  fontSize: 16,
                   textAlign: "center",
                 }}
               >
@@ -137,7 +137,7 @@ const listStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  descrizione: { fontSize: 16, flex: 1, textTransform: "uppercase" },
+  descrizione: { fontSize: 20, flex: 1, textTransform: "uppercase" },
   descrizione_view: { flex: 1, backgroundColor: "transparent", marginEnd: 16 },
   play: {
     height: 32,
@@ -152,38 +152,36 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: "green",
-    paddingBottom: 16,
+    backgroundColor: "red",
   },
   header_title: {
     textAlign: "center",
     fontSize: 24,
     margin: 16,
-    backgroundColor: "transparent",
   },
   header_content: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "transparent",
+    backgroundColor: "azure",
   },
   header_content_side: {
     flex: 2,
     alignSelf: "flex-start",
     marginTop: 32,
-    backgroundColor: "transparent",
+    backgroundColor: "green",
     alignContent: "center",
   },
   header_content_side_number: {
-    fontSize: 22,
+    fontSize: 24,
     textAlign: "center",
   },
   header_content_side_desc: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: "center",
   },
   header_content_center: {
     flex: 3,
-    backgroundColor: "transparent",
+    backgroundColor: "yellow",
   },
   header_content_center_image: {
     flex: 1,

@@ -12,6 +12,7 @@ import SecondPage from "./screens/TabTwoScreen";
 
 // Import Custom Sidebar
 import CustomSidebarMenu from "./CustomSidebarMenu";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -92,41 +93,43 @@ function secondScreenStack({ navigation }) {
 
 function App() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContentOptions={{
-          activeTintColor: "#e91e63",
-          itemStyle: { marginVertical: 5 },
-        }}
-        drawerContent={(props) => <CustomSidebarMenu {...props} />}
-      >
-        <Drawer.Screen
-          name="Home"
-          options={{ drawerLabel: "Home" }}
-          component={HomeStack}
-        />
-        <Drawer.Screen
-          name="Storico"
-          options={{ drawerLabel: "Storico" }}
-          component={secondScreenStack}
-        />
-        <Drawer.Screen
-          name="Statistiche"
-          options={{ drawerLabel: "Statistiche" }}
-          component={secondScreenStack}
-        />
-        <Drawer.Screen
-          name="Impostazioni"
-          options={{ drawerLabel: "Impostazioni" }}
-          component={secondScreenStack}
-        />
-        <Drawer.Screen
-          name="Calendario"
-          options={{ drawerLabel: "Calendario" }}
-          component={secondScreenStack}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Drawer.Navigator
+          drawerContentOptions={{
+            activeTintColor: "#e91e63",
+            itemStyle: { marginVertical: 5 },
+          }}
+          drawerContent={(props) => <CustomSidebarMenu {...props} />}
+        >
+          <Drawer.Screen
+            name="Home"
+            options={{ drawerLabel: "Home" }}
+            component={HomeStack}
+          />
+          <Drawer.Screen
+            name="Storico"
+            options={{ drawerLabel: "Storico" }}
+            component={secondScreenStack}
+          />
+          <Drawer.Screen
+            name="Statistiche"
+            options={{ drawerLabel: "Statistiche" }}
+            component={secondScreenStack}
+          />
+          <Drawer.Screen
+            name="Impostazioni"
+            options={{ drawerLabel: "Impostazioni" }}
+            component={secondScreenStack}
+          />
+          <Drawer.Screen
+            name="Calendario"
+            options={{ drawerLabel: "Calendario" }}
+            component={secondScreenStack}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
