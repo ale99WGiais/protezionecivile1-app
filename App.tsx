@@ -7,7 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import FirstPage from "./screens/TabOneScreen";
+import HomePage from "./screens/TabOneScreen";
 import SecondPage from "./screens/TabTwoScreen";
 
 // Import Custom Sidebar
@@ -38,14 +38,14 @@ const NavigationDrawerStructure = (props) => {
   );
 };
 
-function firstScreenStack({ navigation }) {
+function HomeStack({ navigation }) {
   return (
-    <Stack.Navigator initialRouteName="FirstPage">
+    <Stack.Navigator initialRouteName="HomePage">
       <Stack.Screen
-        name="FirstPage"
-        component={FirstPage}
+        name="HomePage"
+        component={HomePage}
         options={{
-          title: "First Page", //Set Header Title
+          title: "Home", //Set Header Title
           headerLeft: () => (
             <NavigationDrawerStructure navigationProps={navigation} />
           ),
@@ -103,7 +103,7 @@ function App() {
         <Drawer.Screen
           name="Home"
           options={{ drawerLabel: "Home" }}
-          component={firstScreenStack}
+          component={HomeStack}
         />
         <Drawer.Screen
           name="Storico"
